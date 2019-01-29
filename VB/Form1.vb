@@ -1,74 +1,40 @@
-Imports Microsoft.VisualBasic
-Imports System
-Imports System.Collections.Generic
-Imports System.ComponentModel
-Imports System.Data
-Imports System.Drawing
-Imports System.Linq
-Imports System.Text
-Imports System.Windows.Forms
+﻿Imports Microsoft.VisualBasic
 Imports DevExpress.Utils
-Imports DevExpress.XtraGrid.Views.Base
+Imports DevExpress.XtraEditors
 Imports DevExpress.XtraGrid.Views.Grid
 Imports DevExpress.XtraGrid.Views.Grid.ViewInfo
-Imports System.IO
+Imports System.ComponentModel
+Imports System.Drawing
 
 Namespace WindowsFormsApplication85
 	Partial Public Class Form1
-		Inherits Form
+		Inherits XtraForm
 		Public Sub New()
 			InitializeComponent()
+
+			Dim list = New BindingList(Of Item)()
+			For i As Integer = 0 To 4
+				list.Add(New Item() With {.CategoryID = i, .CategoryName = "Test name" & i, .Description = "Description" & i, .Picture = imageCollection1.Images(i)})
+			Next i
+			gridControl1.DataSource = list
 		End Sub
 
-		Private Sub Form1_Load(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Load
-			' TODO: This line of code loads data into the 'nwindDataSet.Categories' table. You can move, or remove it, as needed.
-			'this.categoriesTableAdapter.Fill(this.nwindDataSet.Categories);
-			nwindDataSet.ReadXml("..\..\Categories")
-
-		End Sub
-
-		Private Sub toolTipController1_GetActiveObjectInfo(ByVal sender As Object, ByVal e As DevExpress.Utils.ToolTipControllerGetActiveObjectInfoEventArgs) Handles toolTipController1.GetActiveObjectInfo
+		Private Sub toolTipController1_GetActiveObjectInfo(ByVal sender As Object, ByVal e As ToolTipControllerGetActiveObjectInfoEventArgs) Handles toolTipController1.GetActiveObjectInfo
 			If e.SelectedControl IsNot gridControl1 Then
 				Return
 			End If
 			Dim info As ToolTipControlInfo = Nothing
-
 			Dim sTooltip1 As New SuperToolTip()
-
-
 			Try
 				Dim view As GridView = TryCast(gridControl1.GetViewAt(e.ControlMousePosition), GridView)
 				If view Is Nothing Then
 					Return
 				End If
 				Dim hi As GridHitInfo = view.CalcHitInfo(e.ControlMousePosition)
-				'if (hi.InRowCell)
-				'{
-				'    info = new ToolTipControlInfo(new CellToolTipInfo(hi.RowHandle, hi.Column, "cell"), GetCellHintText(view, hi.RowHandle, hi.Column));
-				'    return;
-				'}
-				'if (hi.Column != null)
-				'{
-				'    info = new ToolTipControlInfo(hi.Column, GetColumnHintText(hi.Column));
-				'    return;
-				'}
-				'if (hi.HitTest == GridHitTest.GroupPanel)
-				'{
-				'    info = new ToolTipControlInfo(hi.HitTest, "Group panel");
-				'    return;
-				'}
-
 				If hi.HitTest = GridHitTest.RowIndicator Then
 					info = New ToolTipControlInfo(GridHitTest.RowIndicator.ToString() & hi.RowHandle.ToString(), "Row Handle: " & hi.RowHandle.ToString())
 					Dim titleItem1 As New ToolTipTitleItem()
-					Dim cellIm() As Byte = TryCast(view.GetRowCellValue(hi.RowHandle, "Picture"), Byte())
-					Dim im As Image = Nothing
-					If cellIm IsNot Nothing Then
-						Dim ms As New MemoryStream(cellIm)
-
-						im = Image.FromStream(ms)
-					End If
-
+					Dim im As Image = TryCast(view.GetRowCellValue(hi.RowHandle, "Picture"), Image)
 					Dim item1 As New ToolTipItem()
 					item1.Image = im
 					sTooltip1.Items.Add(item1)
@@ -79,14 +45,43 @@ Namespace WindowsFormsApplication85
 				e.Info = info
 			End Try
 		End Sub
-
-		Private Function GetColumnHintText(ByVal gridColumn As DevExpress.XtraGrid.Columns.GridColumn) As String
-			Throw New NotImplementedException()
-		End Function
-
-		Private Function GetCellHintText(ByVal view As GridView, ByVal p As Integer, ByVal gridColumn As DevExpress.XtraGrid.Columns.GridColumn) As String
-			Throw New NotImplementedException()
-		End Function
-
+	End Class
+	Public Class Item
+		Private privateCategoryID As Integer
+		Public Property CategoryID() As Integer
+			Get
+				Return privateCategoryID
+			End Get
+			Set(ByVal value As Integer)
+				privateCategoryID = value
+			End Set
+		End Property
+		Private privateCategoryName As String
+		Public Property CategoryName() As String
+			Get
+				Return privateCategoryName
+			End Get
+			Set(ByVal value As String)
+				privateCategoryName = value
+			End Set
+		End Property
+		Private privateDescription As String
+		Public Property Description() As String
+			Get
+				Return privateDescription
+			End Get
+			Set(ByVal value As String)
+				privateDescription = value
+			End Set
+		End Property
+		Private privatePicture As Image
+		Public Property Picture() As Image
+			Get
+				Return privatePicture
+			End Get
+			Set(ByVal value As Image)
+				privatePicture = value
+			End Set
+		End Property
 	End Class
 End Namespace

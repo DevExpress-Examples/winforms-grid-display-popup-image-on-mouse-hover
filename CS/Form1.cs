@@ -1,76 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using DevExpress.Utils;
-using DevExpress.XtraGrid.Views.Base;
+﻿using DevExpress.Utils;
+using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraGrid.Views.Grid.ViewInfo;
-using System.IO;
+using System.ComponentModel;
+using System.Drawing;
 
 namespace WindowsFormsApplication85
 {
-    public partial class Form1 : Form
+    public partial class Form1 : XtraForm
     {
         public Form1()
         {
             InitializeComponent();
+
+            var list = new BindingList<Item>();
+            for (int i = 0; i < 5; i++)
+                list.Add(new Item() { CategoryID = i, CategoryName = "Test name" + i, Description = "Description" + i, Picture = imageCollection1.Images[i] });
+            gridControl1.DataSource = list;
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            // TODO: This line of code loads data into the 'nwindDataSet.Categories' table. You can move, or remove it, as needed.
-            //this.categoriesTableAdapter.Fill(this.nwindDataSet.Categories);
-            nwindDataSet.ReadXml(@"..\..\Categories");
-
-        }
-
-        private void toolTipController1_GetActiveObjectInfo(object sender, DevExpress.Utils.ToolTipControllerGetActiveObjectInfoEventArgs e)
+        private void toolTipController1_GetActiveObjectInfo(object sender, ToolTipControllerGetActiveObjectInfoEventArgs e)
         {
             if (e.SelectedControl != gridControl1) return;
             ToolTipControlInfo info = null;
-
             SuperToolTip sTooltip1 = new SuperToolTip();
-       
-
             try
             {
                 GridView view = gridControl1.GetViewAt(e.ControlMousePosition) as GridView;
                 if (view == null) return;
                 GridHitInfo hi = view.CalcHitInfo(e.ControlMousePosition);
-                //if (hi.InRowCell)
-                //{
-                //    info = new ToolTipControlInfo(new CellToolTipInfo(hi.RowHandle, hi.Column, "cell"), GetCellHintText(view, hi.RowHandle, hi.Column));
-                //    return;
-                //}
-                //if (hi.Column != null)
-                //{
-                //    info = new ToolTipControlInfo(hi.Column, GetColumnHintText(hi.Column));
-                //    return;
-                //}
-                //if (hi.HitTest == GridHitTest.GroupPanel)
-                //{
-                //    info = new ToolTipControlInfo(hi.HitTest, "Group panel");
-                //    return;
-                //}
-
                 if (hi.HitTest == GridHitTest.RowIndicator)
                 {
                     info = new ToolTipControlInfo(GridHitTest.RowIndicator.ToString() + hi.RowHandle.ToString(), "Row Handle: " + hi.RowHandle.ToString());
                     ToolTipTitleItem titleItem1 = new ToolTipTitleItem();
-                    byte[] cellIm = view.GetRowCellValue(hi.RowHandle, "Picture") as byte[];
-                    Image im = null;
-                    if (cellIm != null)
-                    {
-                        MemoryStream ms = new MemoryStream(cellIm);
-
-                        im = Image.FromStream(ms);
-                    }
-                    
+                    Image im = view.GetRowCellValue(hi.RowHandle, "Picture") as Image;
                     ToolTipItem item1 = new ToolTipItem();
                     item1.Image = im;
                     sTooltip1.Items.Add(item1);
@@ -83,16 +46,12 @@ namespace WindowsFormsApplication85
                 e.Info = info;
             }
         }
-
-        private string GetColumnHintText(DevExpress.XtraGrid.Columns.GridColumn gridColumn)
-        {
-            throw new NotImplementedException();
-        }
-
-        private string GetCellHintText(GridView view, int p, DevExpress.XtraGrid.Columns.GridColumn gridColumn)
-        {
-            throw new NotImplementedException();
-        }
-
+    }
+    public class Item
+    {
+        public int CategoryID { get; set; }
+        public string CategoryName { get; set; }
+        public string Description { get; set; }
+        public Image Picture { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-Imports Microsoft.VisualBasic
+﻿Imports Microsoft.VisualBasic
 Imports System
 Namespace WindowsFormsApplication85
 	Partial Public Class Form1
@@ -26,19 +26,17 @@ Namespace WindowsFormsApplication85
 		''' </summary>
 		Private Sub InitializeComponent()
 			Me.components = New System.ComponentModel.Container()
+			Dim resources As New System.ComponentModel.ComponentResourceManager(GetType(Form1))
 			Me.toolTipController1 = New DevExpress.Utils.ToolTipController(Me.components)
 			Me.gridControl1 = New DevExpress.XtraGrid.GridControl()
-			Me.categoriesBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-			Me.nwindDataSet = New WindowsFormsApplication85.nwindDataSet()
 			Me.gridView1 = New DevExpress.XtraGrid.Views.Grid.GridView()
 			Me.colCategoryID = New DevExpress.XtraGrid.Columns.GridColumn()
 			Me.colCategoryName = New DevExpress.XtraGrid.Columns.GridColumn()
 			Me.colDescription = New DevExpress.XtraGrid.Columns.GridColumn()
-			Me.categoriesTableAdapter = New WindowsFormsApplication85.nwindDataSetTableAdapters.CategoriesTableAdapter()
+			Me.imageCollection1 = New DevExpress.Utils.ImageCollection(Me.components)
 			CType(Me.gridControl1, System.ComponentModel.ISupportInitialize).BeginInit()
-			CType(Me.categoriesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-			CType(Me.nwindDataSet, System.ComponentModel.ISupportInitialize).BeginInit()
 			CType(Me.gridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+			CType(Me.imageCollection1, System.ComponentModel.ISupportInitialize).BeginInit()
 			Me.SuspendLayout()
 			' 
 			' toolTipController1
@@ -47,9 +45,7 @@ Namespace WindowsFormsApplication85
 			' 
 			' gridControl1
 			' 
-			Me.gridControl1.DataSource = Me.categoriesBindingSource
 			Me.gridControl1.Dock = System.Windows.Forms.DockStyle.Fill
-			Me.gridControl1.EmbeddedNavigator.Name = ""
 			Me.gridControl1.Location = New System.Drawing.Point(0, 0)
 			Me.gridControl1.MainView = Me.gridView1
 			Me.gridControl1.Name = "gridControl1"
@@ -57,16 +53,6 @@ Namespace WindowsFormsApplication85
 			Me.gridControl1.TabIndex = 0
 			Me.gridControl1.ToolTipController = Me.toolTipController1
 			Me.gridControl1.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() { Me.gridView1})
-			' 
-			' categoriesBindingSource
-			' 
-			Me.categoriesBindingSource.DataMember = "Categories"
-			Me.categoriesBindingSource.DataSource = Me.nwindDataSet
-			' 
-			' nwindDataSet
-			' 
-			Me.nwindDataSet.DataSetName = "nwindDataSet"
-			Me.nwindDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
 			' 
 			' gridView1
 			' 
@@ -98,9 +84,15 @@ Namespace WindowsFormsApplication85
 			Me.colDescription.Visible = True
 			Me.colDescription.VisibleIndex = 2
 			' 
-			' categoriesTableAdapter
+			' imageCollection1
 			' 
-			Me.categoriesTableAdapter.ClearBeforeFill = True
+			Me.imageCollection1.ImageSize = New System.Drawing.Size(128, 128)
+			Me.imageCollection1.ImageStream = (CType(resources.GetObject("imageCollection1.ImageStream"), DevExpress.Utils.ImageCollectionStreamer))
+			Me.imageCollection1.Images.SetKeyName(0, "1.png")
+			Me.imageCollection1.Images.SetKeyName(1, "2.png")
+			Me.imageCollection1.Images.SetKeyName(2, "3.png")
+			Me.imageCollection1.Images.SetKeyName(3, "4.png")
+			Me.imageCollection1.Images.SetKeyName(4, "5.png")
 			' 
 			' Form1
 			' 
@@ -109,13 +101,10 @@ Namespace WindowsFormsApplication85
 			Me.ClientSize = New System.Drawing.Size(463, 315)
 			Me.Controls.Add(Me.gridControl1)
 			Me.Name = "Form1"
-			Me.toolTipController1.SetSuperTip(Me, Nothing)
 			Me.Text = "Form1"
-'			Me.Load += New System.EventHandler(Me.Form1_Load);
 			CType(Me.gridControl1, System.ComponentModel.ISupportInitialize).EndInit()
-			CType(Me.categoriesBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-			CType(Me.nwindDataSet, System.ComponentModel.ISupportInitialize).EndInit()
 			CType(Me.gridView1, System.ComponentModel.ISupportInitialize).EndInit()
+			CType(Me.imageCollection1, System.ComponentModel.ISupportInitialize).EndInit()
 			Me.ResumeLayout(False)
 
 		End Sub
@@ -125,13 +114,10 @@ Namespace WindowsFormsApplication85
 		Private WithEvents toolTipController1 As DevExpress.Utils.ToolTipController
 		Private gridControl1 As DevExpress.XtraGrid.GridControl
 		Private gridView1 As DevExpress.XtraGrid.Views.Grid.GridView
-		Private nwindDataSet As nwindDataSet
-		Private categoriesBindingSource As System.Windows.Forms.BindingSource
-		Private categoriesTableAdapter As WindowsFormsApplication85.nwindDataSetTableAdapters.CategoriesTableAdapter
 		Private colCategoryID As DevExpress.XtraGrid.Columns.GridColumn
 		Private colCategoryName As DevExpress.XtraGrid.Columns.GridColumn
 		Private colDescription As DevExpress.XtraGrid.Columns.GridColumn
-
+		Private imageCollection1 As DevExpress.Utils.ImageCollection
 	End Class
 End Namespace
 

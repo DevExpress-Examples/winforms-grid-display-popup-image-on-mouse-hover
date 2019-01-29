@@ -29,19 +29,17 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.toolTipController1 = new DevExpress.Utils.ToolTipController(this.components);
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
-            this.categoriesBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.nwindDataSet = new WindowsFormsApplication85.nwindDataSet();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colCategoryID = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colCategoryName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDescription = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.categoriesTableAdapter = new WindowsFormsApplication85.nwindDataSetTableAdapters.CategoriesTableAdapter();
+            this.imageCollection1 = new DevExpress.Utils.ImageCollection(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.categoriesBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nwindDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imageCollection1)).BeginInit();
             this.SuspendLayout();
             // 
             // toolTipController1
@@ -50,9 +48,7 @@
             // 
             // gridControl1
             // 
-            this.gridControl1.DataSource = this.categoriesBindingSource;
             this.gridControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridControl1.EmbeddedNavigator.Name = "";
             this.gridControl1.Location = new System.Drawing.Point(0, 0);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
@@ -61,16 +57,6 @@
             this.gridControl1.ToolTipController = this.toolTipController1;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
-            // 
-            // categoriesBindingSource
-            // 
-            this.categoriesBindingSource.DataMember = "Categories";
-            this.categoriesBindingSource.DataSource = this.nwindDataSet;
-            // 
-            // nwindDataSet
-            // 
-            this.nwindDataSet.DataSetName = "nwindDataSet";
-            this.nwindDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // gridView1
             // 
@@ -105,9 +91,15 @@
             this.colDescription.Visible = true;
             this.colDescription.VisibleIndex = 2;
             // 
-            // categoriesTableAdapter
+            // imageCollection1
             // 
-            this.categoriesTableAdapter.ClearBeforeFill = true;
+            this.imageCollection1.ImageSize = new System.Drawing.Size(128, 128);
+            this.imageCollection1.ImageStream = ((DevExpress.Utils.ImageCollectionStreamer)(resources.GetObject("imageCollection1.ImageStream")));
+            this.imageCollection1.Images.SetKeyName(0, "1.png");
+            this.imageCollection1.Images.SetKeyName(1, "2.png");
+            this.imageCollection1.Images.SetKeyName(2, "3.png");
+            this.imageCollection1.Images.SetKeyName(3, "4.png");
+            this.imageCollection1.Images.SetKeyName(4, "5.png");
             // 
             // Form1
             // 
@@ -116,13 +108,10 @@
             this.ClientSize = new System.Drawing.Size(463, 315);
             this.Controls.Add(this.gridControl1);
             this.Name = "Form1";
-            this.toolTipController1.SetSuperTip(this, null);
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.categoriesBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nwindDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imageCollection1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -132,13 +121,10 @@
         private DevExpress.Utils.ToolTipController toolTipController1;
         private DevExpress.XtraGrid.GridControl gridControl1;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
-        private nwindDataSet nwindDataSet;
-        private System.Windows.Forms.BindingSource categoriesBindingSource;
-        private WindowsFormsApplication85.nwindDataSetTableAdapters.CategoriesTableAdapter categoriesTableAdapter;
         private DevExpress.XtraGrid.Columns.GridColumn colCategoryID;
         private DevExpress.XtraGrid.Columns.GridColumn colCategoryName;
         private DevExpress.XtraGrid.Columns.GridColumn colDescription;
-
+        private DevExpress.Utils.ImageCollection imageCollection1;
     }
 }
 
