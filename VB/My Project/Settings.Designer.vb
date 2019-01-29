@@ -25,12 +25,5 @@ Namespace My
 				Return defaultInstance
 			End Get
 		End Property
-
-		<Global.System.Configuration.ApplicationScopedSettingAttribute(), Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.ConnectionString), Global.System.Configuration.DefaultSettingValueAttribute("Provider=Microsoft.Jet.OLEDB.4.0;Data Source=D:\Data\nwind.mdb")> _
-		Public ReadOnly Property nwindConnectionString() As String
-			Get
-				Return (CStr(Me("nwindConnectionString")))
-			End Get
-		End Property
 	End Class
 End Namespace
