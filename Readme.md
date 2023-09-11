@@ -3,17 +3,47 @@
 [![](https://img.shields.io/badge/Open_in_DevExpress_Support_Center-FF7200?style=flat-square&logo=DevExpress&logoColor=white)](https://supportcenter.devexpress.com/ticket/details/E301)
 [![](https://img.shields.io/badge/📖_How_to_use_DevExpress_Examples-e9f6fc?style=flat-square)](https://docs.devexpress.com/GeneralInformation/403183)
 <!-- default badges end -->
-<!-- default file list -->
-*Files to look at*:
+
+# WinForms Data Grid - Display popup images for grid rows (row indicator)
+
+This example shows how to display super tooltips with images when a user hovers over a row indicator.
+
+See the implementation of the [ToolTipController.GetActiveObjectInfo](https://docs.devexpress.com/WindowsForms/DevExpress.Utils.ToolTipController.GetActiveObjectInfo) event:
+
+```csharp
+private void toolTipController1_GetActiveObjectInfo(object sender, ToolTipControllerGetActiveObjectInfoEventArgs e) {
+    if (e.SelectedControl != gridControl1) return;
+    ToolTipControlInfo info = null;
+    SuperToolTip sTooltip1 = new SuperToolTip();
+    try {
+        GridView view = gridControl1.GetViewAt(e.ControlMousePosition) as GridView;
+        if (view == null) return;
+        GridHitInfo hi = view.CalcHitInfo(e.ControlMousePosition);
+        if (hi.HitTest == GridHitTest.RowIndicator) {
+            info = new ToolTipControlInfo(GridHitTest.RowIndicator.ToString() + hi.RowHandle.ToString(), "Row Handle: " + hi.RowHandle.ToString());
+            ToolTipTitleItem titleItem1 = new ToolTipTitleItem();
+            Image im = view.GetRowCellValue(hi.RowHandle, "Picture") as Image;
+            ToolTipItem item1 = new ToolTipItem();
+            item1.Image = im;
+            sTooltip1.Items.Add(item1);
+        }
+        info = new ToolTipControlInfo(hi.HitTest, "");
+        info.SuperTip = sTooltip1;
+    }
+    finally {
+        e.Info = info;
+    }
+}
+```
+
+
+## Files to Review
 
 * [Form1.cs](./CS/Form1.cs) (VB: [Form1.vb](./VB/Form1.vb))
-<!-- default file list end -->
-# Popup images for grid rows
 
 
-<p>The sample illustrates how to use super tooltips to display popup images for grid rows. When a user hovers over a row indicator, an image for the corresponding row is displayed.<br />
-The sample uses the ToolTipController.GetActiveObjectInfo event to provide super tooltips and calculates a visual element under the mouse cursor using the GridView.CalcHitInfo() method.</p>
+## Documentation
 
-<br/>
-
-
+* [Data Grid Tooltips](https://docs.devexpress.com/WindowsForms/3512/controls-and-libraries/data-grid/data-grid-tooltips)
+* [Hit Information](https://docs.devexpress.com/WindowsForms/3511/controls-and-libraries/data-grid/hit-information)
+* [Hints and Tooltips](https://docs.devexpress.com/WindowsForms/2398/common-features/tooltips)
